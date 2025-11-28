@@ -564,17 +564,17 @@ db.restaurants.aggregate([
 
 ```
 AVANT $unwind :
-{ name: "Pizza Roma", grades: [{grade:"A"}, {grade:"B"}] }
+{ name: "Wendy'S", grades: [{grade:"A"}, {grade:"B"}] }
 
 APRÈS $unwind sur grades :
-{ name: "Pizza Roma", grades: {grade:"A"} }
-{ name: "Pizza Roma", grades: {grade:"B"} }
+{ name: "Wendy'S", grades: {grade:"A"} }
+{ name: "Wendy'S", grades: {grade:"B"} }
 ```
 
 ```javascript
 // Dérouler le tableau grades
 db.restaurants.aggregate([
-    { $match: { name: "Pizza Roma" } },
+    { $match: { name: "Wendy'S" } },
     { $unwind: "$grades" },
     { $project: {
         name: 1,
