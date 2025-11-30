@@ -1,0 +1,18 @@
+{
+  "name": "@tp2/dashboard-front",
+  "version": "1.0.0",
+  "description": "Dashboard web pour visualiser les métriques restaurants - TP2 MongoDB",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon --watch src --watch public --watch .env src/server.js"
+  },
+  "dependencies": {
+    "@fastify/static": "^7.0.4",
+    "dotenv": "^16.3.1",
+    "fastify": "^4.28.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
