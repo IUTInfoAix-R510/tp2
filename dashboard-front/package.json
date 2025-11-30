@@ -8,11 +8,11 @@
     "dev": "nodemon --watch src --watch public --watch .env src/server.js"
   },
   "dependencies": {
-    "@fastify/static": "^7.0.4",
-    "dotenv": "^16.3.1",
-    "fastify": "^4.28.1"
+    "@fastify/static": "^8.0.4",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.2.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.9"
   }
 }
