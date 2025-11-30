@@ -328,10 +328,18 @@ Le **pipeline d'agrégation** est l'équivalent MongoDB des requêtes analytique
 
 Un pipeline est une **séquence d'étapes** où chaque étape transforme les données :
 
-```
-Documents → [$match] → [$group] → [$sort] → [$limit] → Résultat
-              ↓           ↓          ↓          ↓
-           Filtrer    Regrouper   Trier    Limiter
+```mermaid
+flowchart LR
+    A[📄 Documents] --> B["$match"]
+    B --> C["$group"]
+    C --> D["$sort"]
+    D --> E["$limit"]
+    E --> F[📊 Résultat]
+
+    B -.- B1[Filtrer]
+    C -.- C1[Regrouper]
+    D -.- D1[Trier]
+    E -.- E1[Limiter]
 ```
 
 **Principe clé :** La sortie d'une étape devient l'entrée de la suivante.
@@ -981,13 +989,22 @@ Cette architecture en couches est exactement celle que vous utiliserez pour votr
 
 ### Architecture de l'application
 
-```
-┌─────────────────┐     HTTP/JSON     ┌─────────────────┐     Driver      ┌─────────────────┐
-│   Dashboard     │ ◄───────────────► │   API REST      │ ◄─────────────► │   MongoDB       │
-│   (Front-end)   │                   │   (Fastify)     │                 │   Atlas         │
-│   HTML/JS       │                   │   Node.js       │                 │                 │
-└─────────────────┘                   └─────────────────┘                 └─────────────────┘
-     Port 5500                             Port 3000                        Cloud
+```mermaid
+flowchart LR
+    subgraph Frontend["🖥️ Port 5500"]
+        A["<b>Dashboard</b><br/>(Front-end)<br/>HTML/JS"]
+    end
+
+    subgraph Backend["⚙️ Port 3000"]
+        B["<b>API REST</b><br/>(Fastify)<br/>Node.js"]
+    end
+
+    subgraph Cloud["☁️ Cloud"]
+        C["<b>MongoDB</b><br/>Atlas"]
+    end
+
+    A <-->|"HTTP/JSON"| B
+    B <-->|"Driver"| C
 ```
 
 ### 6.1 Structure du projet
@@ -1106,12 +1123,13 @@ Une **API REST** (Representational State Transfer) est une interface qui permet 
 - L'**API** interroge **MongoDB** et retourne les résultats au format **JSON**
 - Le **dashboard** affiche ces données sous forme de graphiques
 
-```
-┌──────────────┐   GET /api/stats/overview   ┌──────────────┐
-│  Dashboard   │ ─────────────────────────►  │     API      │
-│  (navigateur)│                             │   (Fastify)  │
-│              │ ◄─────────────────────────  │              │
-└──────────────┘   {"total": 25359, ...}     └──────────────┘
+```mermaid
+sequenceDiagram
+    participant D as 🖥️ Dashboard<br/>(navigateur)
+    participant A as ⚙️ API<br/>(Fastify)
+
+    D->>A: GET /api/stats/overview
+    A-->>D: {"total": 25359, ...}
 ```
 
 #### Les méthodes HTTP
