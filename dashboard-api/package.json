@@ -1,16 +1,22 @@
 {
-  "name": "dashboard-api",
+  "name": "@tp2/dashboard-api",
   "version": "1.0.0",
   "description": "API REST pour le dashboard restaurants - TP2 MongoDB",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node src/server.js",
+    "dev": "nodemon --watch src --watch .env src/server.js",
+    "test": "node --test tests/pipelines.test.js",
+    "test:api": "node --test tests/api.test.js",
+    "test:all": "node --test tests/*.test.js"
   },
   "dependencies": {
-    "cors": "^2.8.5",
+    "@fastify/cors": "^9.0.1",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
+    "fastify": "^4.28.1",
     "mongodb": "^6.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
