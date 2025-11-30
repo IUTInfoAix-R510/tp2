@@ -1093,6 +1093,9 @@ tp2/
 ├── package.json                    ← Workspace racine (npm workspaces)
 ├── eslint.config.js                ← Configuration ESLint
 ├── .prettierrc                     ← Configuration Prettier
+├── commitlint.config.js            ← Convention de commits
+├── git-precommit-checks.config.js  ← Vérifications pre-commit
+├── .validate-branch-namerc.js      ← Convention de nommage des branches
 ├── README.md
 ├── playground-tp2.mongodb.js
 ├── solutions-tp2.mongodb.js
@@ -1194,11 +1197,13 @@ Ouvrez http://localhost:5500 dans votre navigateur.
 
 Le dashboard affichera **"TODO"** pour chaque métrique tant que vous n'aurez pas complété les pipelines.
 
-#### Outils de qualité de code (optionnel)
+#### Outils de qualité de code
 
-Le projet inclut **ESLint** et **Prettier** pour maintenir un code propre et cohérent.
+Le projet inclut plusieurs outils pour maintenir un code propre et des commits cohérents.
 
-**Commandes disponibles :**
+##### Linting et formatage
+
+**ESLint** vérifie la qualité du code et **Prettier** assure un formatage uniforme.
 
 ```bash
 # Vérifier le style de code (erreurs et warnings)
@@ -1214,7 +1219,91 @@ npm run format:check
 npm run format
 ```
 
-> **Conseil :** Exécutez `npm run lint` et `npm run format` avant de committer votre travail pour assurer un code propre.
+##### Convention de commits (Conventional Commits)
+
+Ce projet utilise la convention [Conventional Commits](https://www.conventionalcommits.org/) pour des messages de commit structurés et lisibles.
+
+**Format du message :**
+
+```
+<type>(<scope>): <description>
+
+[corps optionnel]
+
+[footer optionnel]
+```
+
+**Types autorisés :**
+
+| Type | Description |
+|------|-------------|
+| `feat` | Nouvelle fonctionnalité |
+| `fix` | Correction de bug |
+| `docs` | Documentation uniquement |
+| `style` | Formatage (pas de changement de code) |
+| `refactor` | Refactorisation du code |
+| `test` | Ajout ou modification de tests |
+| `chore` | Maintenance (dépendances, config...) |
+
+**Scopes disponibles :** `wip`, `configs`, `formatting`, `code`, `ci`, `deployment`, `tests`
+
+**Exemples de commits valides :**
+
+```bash
+# Commit simple
+git commit -m "feat(code): add overview pipeline"
+
+# Commit avec scope
+git commit -m "fix(tests): correct assertion in api test"
+
+# Commit de configuration
+git commit -m "chore(configs): update eslint rules"
+```
+
+> **Important :** La description doit être en **minuscules** (sans majuscule au début).
+
+##### Convention de nommage des branches
+
+Les branches doivent respecter ce format :
+
+| Pattern | Exemple |
+|---------|---------|
+| `feature/<numero>-<description>` | `feature/42-add-pagination` |
+| `fix/<numero>-<description>` | `fix/15-correct-score-calculation` |
+| `docs/<numero>-<description>` | `docs/3-update-readme` |
+| `chores/<numero>-<description>` | `chores/8-update-dependencies` |
+| `release/v<X.Y.Z>` | `release/v1.2.0` |
+
+Les branches `main`, `staging` et `production` sont également autorisées.
+
+**Renommer une branche non conforme :**
+
+```bash
+git branch -m ancien-nom feature/1-nouveau-nom
+```
+
+##### Vérifications pre-commit
+
+Lors de chaque commit, les vérifications suivantes sont effectuées automatiquement :
+
+| Vérification | Comportement |
+|--------------|--------------|
+| `TODO` / `FIXME` dans le code | ⚠️ Warning (non bloquant) |
+| `console.log()` dans les fichiers JS | ⚠️ Warning (non bloquant) |
+| Marqueurs de conflit git (`<<<<`, `>>>>`) | ❌ Bloquant |
+| Texte "do not commit" | ❌ Bloquant |
+
+##### Commande de commit assisté
+
+Pour créer un commit conforme facilement, utilisez :
+
+```bash
+npm run prepare-commit
+```
+
+Cette commande lance un assistant interactif (Commitizen) qui vous guide dans la création d'un message de commit valide.
+
+> **Conseil :** Utilisez `npm run prepare-commit` pour vos premiers commits jusqu'à maîtriser la convention.
 
 ### 6.3 Comprendre et tester une API REST
 

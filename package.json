@@ -20,13 +20,36 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "commit:checks": "npx --no-install git-precommit-checks && npx lint-staged && npx validate-branch-name && git-cz",
+    "prepare-commit": "cross-env CHECKS_RUN=1 npm run commit:checks"
   },
   "type": "module",
   "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@commitlint/cz-commitlint": "^19.5.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.0",
+    "commitizen": "^4.3.1",
+    "cross-env": "^7.0.3",
+    "git-precommit-checks": "^3.1.0",
     "@eslint/js": "^9.15.0",
     "concurrently": "^8.2.2",
     "eslint": "^9.15.0",
-    "prettier": "^3.4.2"
+    "prettier": "^3.4.2",
+    "semantic-release": "^24.1.2",
+    "validate-branch-name": "^1.3.1"
+  },
+  "lint-staged": {
+    "*.js, *.json, *.css": "prettier",
+    "*.ts": "eslint"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
   }
 }
