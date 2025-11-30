@@ -330,16 +330,11 @@ Un pipeline est une **séquence d'étapes** où chaque étape transforme les don
 
 ```mermaid
 flowchart LR
-    A[📄 Documents] --> B["$match"]
-    B --> C["$group"]
-    C --> D["$sort"]
-    D --> E["$limit"]
+    A[📄 Documents] --> B["$match<br/><small>Filtrer</small>"]
+    B --> C["$group<br/><small>Regrouper</small>"]
+    C --> D["$sort<br/><small>Trier</small>"]
+    D --> E["$limit<br/><small>Limiter</small>"]
     E --> F[📊 Résultat]
-
-    B -.- B1[Filtrer]
-    C -.- C1[Regrouper]
-    D -.- D1[Trier]
-    E -.- E1[Limiter]
 ```
 
 **Principe clé :** La sortie d'une étape devient l'entrée de la suivante.
