@@ -3,11 +3,40 @@
 // Fichier d'exercices interactif - BUT3 Informatique
 // ============================================================================
 //
+// INFORMATIONS ÉTUDIANT (à compléter)
+// ------------------------------------
+// Nom      : ___________________
+// Prénom   : ___________________
+// Groupe   : ___________________
+// Date     : ___________________
+//
+// ============================================================================
+//
 // Instructions :
 // 1. Ouvrir ce fichier dans VS Code avec l'extension MongoDB for VS Code
 // 2. Connectez-vous à votre cluster Atlas
 // 3. Exécutez les blocs de code avec Ctrl+Alt+R (ou clic droit > Run)
 // 4. Complétez les exercices dans les zones "// TODO"
+// 5. Committez régulièrement votre travail
+//
+// Correspondance exercices README ↔ Playground :
+// ----------------------------------------------
+// - Exercice 1 → README Section 1.2 ($elemMatch)
+// - Exercice 2 → README Section 1.2 ($elemMatch avec dates)
+// - Exercice 3 → README Section 1.2 ($elemMatch avec $or)
+// - Exercice 4 → README Section 1.3 ($expr avec $size)
+// - Exercice 5 → README Section 1.3 ($expr comparaison)
+// - Exercice 6 → README Section 1.4 (Validation de données)
+// - Exercice 7 → README Section 2.4 (Pipeline $group)
+// - Exercice 8 → README Section 2.5 (Pipeline $match + $group)
+// - Exercice 9 → README Section 2.4 (Pipeline $addToSet)
+// - Exercice 10 → README Section 3.3 ($unwind + $group)
+// - Exercice 11 → README Section 3.3 ($unwind analyse)
+// - Exercice 12 → README Section 4.1 ($lookup)
+// - Exercice 13 → README Section 4.2 ($bucket)
+// - Exercice 14 → README Section 4.3 ($facet)
+// - Exercice 15 → README Section 5.3 (Index composé)
+// - Exercice 16 → README Section 5.5 (Index géospatial)
 //
 // ============================================================================
 
@@ -148,6 +177,20 @@ db.restaurants.find({
 });
 
 
+// ============================================================================
+// CHECKPOINT PHASE 1
+// ============================================================================
+// Avant de passer à la Phase 2, vérifiez que vous avez compris :
+//
+// ✅ $elemMatch : Toutes les conditions sur le MÊME élément du tableau
+// ✅ $expr : Utiliser des expressions d'agrégation dans find()
+// ✅ $size, $arrayElemAt : Manipuler les tableaux
+// ✅ $exists, $type : Valider la structure des documents
+//
+// Si vous bloquez sur un exercice, passez au suivant et revenez-y plus tard.
+// ============================================================================
+
+
 // ############################################################################
 // PHASE 2 : INTRODUCTION AU PIPELINE D'AGRÉGATION
 // ############################################################################
@@ -212,6 +255,22 @@ db.restaurants.aggregate([
 ]);
 
 
+// ============================================================================
+// CHECKPOINT PHASE 2
+// ============================================================================
+// Avant de passer à la Phase 3, vérifiez que vous maîtrisez :
+//
+// ✅ $match : Filtrer (équivalent WHERE en SQL)
+// ✅ $group : Regrouper avec _id et accumulateurs ($sum, $addToSet)
+// ✅ $sort : Trier les résultats (1 = croissant, -1 = décroissant)
+// ✅ $limit : Limiter le nombre de résultats
+//
+// Rappel SQL → MongoDB :
+// SELECT borough, COUNT(*) FROM restaurants GROUP BY borough ORDER BY count DESC
+// →  [{ $group: {_id: "$borough", count: {$sum: 1}} }, { $sort: {count: -1} }]
+// ============================================================================
+
+
 // ############################################################################
 // PHASE 3 : TRANSFORMATION DES DONNÉES
 // ############################################################################
@@ -256,6 +315,22 @@ db.restaurants.aggregate([
 db.restaurants.aggregate([
 
 ]);
+
+
+// ============================================================================
+// CHECKPOINT PHASE 3
+// ============================================================================
+// Avant de passer à la Phase 4, vérifiez que vous comprenez :
+//
+// ✅ $unwind : Dérouler un tableau en plusieurs documents
+//    { grades: [{A}, {B}] } → deux documents : {grades: {A}} et {grades: {B}}
+//
+// ✅ $project : Remodeler les documents (sélectionner, renommer, calculer)
+// ✅ $addFields : Ajouter des champs sans perdre les existants
+//
+// Astuce : $unwind est essentiel pour analyser les éléments individuels
+//          d'un tableau (comme les grades/inspections)
+// ============================================================================
 
 
 // ############################################################################
@@ -348,6 +423,19 @@ db.restaurants.aggregate([
         ]
     }}
 ]);
+
+
+// ============================================================================
+// CHECKPOINT PHASE 4
+// ============================================================================
+// Félicitations ! Vous maîtrisez maintenant les agrégations avancées :
+//
+// ✅ $lookup : Jointures entre collections (comme LEFT JOIN en SQL)
+// ✅ $bucket : Créer des histogrammes par tranches
+// ✅ $facet : Exécuter plusieurs pipelines en parallèle
+//
+// Ces opérateurs sont puissants pour créer des dashboards analytiques !
+// ============================================================================
 
 
 // ############################################################################
@@ -468,41 +556,79 @@ db.restaurants.aggregate([
 
 
 // ============================================================================
-// CHECKLIST DE VALIDATION
+// CHECKLIST DE VALIDATION - AUTO-ÉVALUATION
 // ============================================================================
 //
-// Phase 1 - Requêtes avancées :
-// [ ] Exercice 1 : $elemMatch simple
-// [ ] Exercice 2 : $elemMatch avec dates
-// [ ] Exercice 3 : $elemMatch avec $or
-// [ ] Exercice 4 : $expr avec $size
-// [ ] Exercice 5 : Comparaison d'éléments
+// Cochez [x] chaque exercice terminé et fonctionnel.
+// Objectif : Terminer au minimum les exercices obligatoires.
+//
+// ============================================================================
+// PHASE 1 - Requêtes avancées (Obligatoire)
+// ============================================================================
+// [ ] Exercice 1 : $elemMatch simple              (~2800 résultats)
+// [ ] Exercice 2 : $elemMatch avec dates          (~18000 résultats)
+// [ ] Exercice 3 : $elemMatch avec $or            (~4500 résultats)
+// [ ] Exercice 4 : $expr avec $size               (~3500 résultats)
+// [ ] Exercice 5 : Comparaison d'éléments         (exercice avancé)
 // [ ] Exercice 6 : Validation de données
 //
-// Phase 2 - Pipeline d'agrégation :
-// [ ] Exercice 7 : Comptage par quartier
-// [ ] Exercice 8 : Top cuisines Manhattan
-// [ ] Exercice 9 : Cuisines par quartier
+// ============================================================================
+// PHASE 2 - Pipeline d'agrégation (Obligatoire)
+// ============================================================================
+// [ ] Exercice 7 : Comptage par quartier          (5 quartiers)
+// [ ] Exercice 8 : Top cuisines Manhattan         (top 5)
+// [ ] Exercice 9 : Cuisines par quartier          (avec $addToSet)
 //
-// Phase 3 - Transformation :
-// [ ] Exercice 10 : Score moyen par année
-// [ ] Exercice 11 : Inspections par quartier
+// ============================================================================
+// PHASE 3 - Transformation (Obligatoire)
+// ============================================================================
+// [ ] Exercice 10 : Score moyen par année         (utilise $unwind)
+// [ ] Exercice 11 : Inspections par quartier      (nb inspections, pas restaurants)
 //
-// Phase 4 - Agrégations avancées :
-// [ ] Exercice 12 : Jointure $lookup
-// [ ] Exercice 13 : Histogramme $bucket
-// [ ] Exercice 14 : Dashboard $facet
+// ============================================================================
+// PHASE 4 - Agrégations avancées (Recommandé)
+// ============================================================================
+// [ ] Exercice 12 : Jointure $lookup              (densité restaurants)
+// [ ] Exercice 13 : Histogramme $bucket           (par nb inspections)
+// [ ] Exercice 14 : Dashboard $facet              (3 facettes)
 //
-// Phase 5 - Optimisation :
-// [ ] Exercice 15 : Index composé
-// [ ] Exercice 16 : Index géospatial
+// ============================================================================
+// PHASE 5 - Optimisation (Recommandé)
+// ============================================================================
+// [ ] Exercice 15 : Index composé                 (borough + cuisine + name)
+// [ ] Exercice 16 : Index géospatial              (2dsphere + $nearSphere)
 //
-// Phase 6 - Mini-projet :
-// [ ] Challenge Dashboard complet
+// ============================================================================
+// PHASE 6 - Mini-projet Dashboard API (Obligatoire)
+// ============================================================================
+// [ ] Challenge : Dashboard $facet complet
+// [ ] API : Routes stats.js implémentées
+// [ ] Tests : npm run test:api passe
+// [ ] Dashboard : Graphiques affichés correctement
+//
+// ============================================================================
+// RÉCAPITULATIF
+// ============================================================================
+//
+// Exercices obligatoires (phases 1-3 + phase 6) : ____ / 12
+// Exercices recommandés (phases 4-5) :           ____ / 5
+// Total :                                        ____ / 17
+//
+// Notes et remarques :
+// ___________________________________________________________________
+// ___________________________________________________________________
+// ___________________________________________________________________
 //
 // ============================================================================
 
 
 // ============================================================================
-// FIN DU TP2 - Prochain TP : Modélisation avancée MongoDB
+// FIN DU TP2
+// ============================================================================
+// Prochain TP : Modélisation avancée et patterns de conception MongoDB
+//
+// N'oubliez pas de :
+// 1. Committer ce fichier : git add playground-tp2.mongodb.js
+// 2. Committer stats.js :   git add dashboard-api/src/routes/stats.js
+// 3. Pousser sur GitHub :   git push
 // ============================================================================
