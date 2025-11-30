@@ -1,6 +1,6 @@
 {
     "branches": ["main"],
-    "repositoryUrl": "https://github.com/steamicc/makecode-steami.git",
+    "repositoryUrl": "https://github.com/IUTInfoAix-R510/tp2.git",
     "debug": "false",
     "plugins": [
         "@semantic-release/commit-analyzer",
