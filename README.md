@@ -46,7 +46,7 @@ GitHub va vous créer un dépôt contenant un fork du dépôt 'IUTInfoAix-R510/t
 
 ## 📝 Rendu du travail
 
-Ce TP comporte **deux parties** à rendre :
+Ce TP comporte **deux parties** :
 
 ### Partie 1 : Exercices MongoDB (Phases 1 à 5)
 

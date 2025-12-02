@@ -31,6 +31,7 @@ use("sample_restaurants");
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.find({
     grades: {
         $elemMatch: {
@@ -41,11 +42,10 @@ db.restaurants.find({
 });
 
 // Vérification du nombre de résultats
+use("sample_restaurants");
 db.restaurants.countDocuments({
     grades: { $elemMatch: { grade: "B", score: { $lt: 10 } } }
 });
-// Résultat attendu : ~2800 documents
-
 
 // ============================================================================
 // EXERCICE 2 : $elemMatch avec plage de dates
@@ -58,6 +58,7 @@ db.restaurants.countDocuments({
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.find({
     grades: {
         $elemMatch: {
@@ -71,6 +72,7 @@ db.restaurants.find({
 });
 
 // Vérification
+use("sample_restaurants");
 db.restaurants.countDocuments({
     grades: {
         $elemMatch: {
@@ -79,8 +81,6 @@ db.restaurants.countDocuments({
         }
     }
 });
-// Résultat attendu : ~18000 documents
-
 
 // ============================================================================
 // EXERCICE 3 : $elemMatch avec $or
@@ -94,6 +94,7 @@ db.restaurants.countDocuments({
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.find({
     grades: {
         $elemMatch: {
@@ -106,10 +107,10 @@ db.restaurants.find({
 });
 
 // Vérification
+use("sample_restaurants");
 db.restaurants.countDocuments({
     grades: { $elemMatch: { $or: [{ grade: "C" }, { score: { $gt: 30 } }] } }
 });
-// Résultat attendu : ~4500 documents
 
 
 // ============================================================================
@@ -124,6 +125,7 @@ db.restaurants.countDocuments({
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.find({
     $expr: {
         $eq: [{ $size: "$grades" }, 4]
@@ -131,12 +133,13 @@ db.restaurants.find({
 });
 
 // Vérification
+use("sample_restaurants");
 db.restaurants.countDocuments({
     $expr: { $eq: [{ $size: "$grades" }, 4] }
 });
-// Résultat attendu : ~3500 documents
 
 // ALTERNATIVE avec $size dans la requête (exactement N éléments) :
+use("sample_restaurants");
 db.restaurants.countDocuments({ grades: { $size: 4 } });
 // Note : Cette syntaxe ne fonctionne que pour l'égalité exacte
 
@@ -154,6 +157,7 @@ db.restaurants.countDocuments({ grades: { $size: 4 } });
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.find({
     $expr: {
         $lt: [
@@ -165,6 +169,7 @@ db.restaurants.find({
 
 // Note : Cette requête peut retourner des résultats inattendus si grades est vide
 // Version robuste :
+use("sample_restaurants");
 db.restaurants.find({
     $expr: {
         $and: [
@@ -189,6 +194,7 @@ db.restaurants.find({
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.find({
     $or: [
         { borough: { $exists: false } },
@@ -197,6 +203,7 @@ db.restaurants.find({
 });
 
 // Version plus complète incluant null :
+use("sample_restaurants");
 db.restaurants.find({
     $or: [
         { borough: { $exists: false } },
@@ -222,6 +229,7 @@ db.restaurants.find({
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.aggregate([
     {
         $group: {
@@ -248,6 +256,7 @@ db.restaurants.aggregate([
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.aggregate([
     { $match: { borough: "Manhattan" } },
     { $group: {
@@ -269,6 +278,7 @@ db.restaurants.aggregate([
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.aggregate([
     {
         $group: {
@@ -304,6 +314,7 @@ db.restaurants.aggregate([
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.aggregate([
     { $unwind: "$grades" },
     {
@@ -334,6 +345,7 @@ db.restaurants.aggregate([
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.aggregate([
     { $unwind: "$grades" },
     {
@@ -371,6 +383,7 @@ db.restaurants.aggregate([
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.aggregate([
     // 1. Compter les restaurants par quartier
     {
@@ -423,6 +436,7 @@ db.restaurants.aggregate([
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.aggregate([
     // 1. Calculer le nombre d'inspections par restaurant
     {
@@ -444,6 +458,7 @@ db.restaurants.aggregate([
 ]);
 
 // Version avec labels descriptifs :
+use("sample_restaurants");
 db.restaurants.aggregate([
     { $addFields: { nb_inspections: { $size: "$grades" } } },
     { $bucket: {
@@ -482,6 +497,7 @@ db.restaurants.aggregate([
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.aggregate([
     {
         $facet: {
@@ -529,9 +545,11 @@ db.restaurants.aggregate([
 // ============================================================================
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.createIndex({ borough: 1, cuisine: 1, name: 1 });
 
 // Vérifier l'amélioration :
+use("sample_restaurants");
 db.restaurants.find({
     borough: "Brooklyn",
     cuisine: "Italian"
@@ -553,9 +571,11 @@ db.restaurants.find({
 // ============================================================================
 
 // Créer l'index géospatial
+use("sample_restaurants");
 db.restaurants.createIndex({ "address.coord": "2dsphere" });
 
 // SOLUTION :
+use("sample_restaurants");
 db.restaurants.find({
     cuisine: "Italian",
     "address.coord": {
@@ -569,6 +589,7 @@ db.restaurants.find({
 }).limit(5);
 
 // Version avec distance maximale (1km) :
+use("sample_restaurants");
 db.restaurants.find({
     cuisine: "Italian",
     "address.coord": {
@@ -592,6 +613,7 @@ db.restaurants.find({
 // ============================================================================
 
 // SOLUTION COMPLÈTE :
+use("sample_restaurants");
 db.restaurants.aggregate([
     {
         $facet: {
