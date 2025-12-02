@@ -234,10 +234,6 @@ db.restaurants.aggregate([
     }
 ]);
 
-// Résultat attendu :
-// Manhattan: ~10259, Brooklyn: ~6086, Queens: ~5656, Bronx: ~2338, Staten Island: ~969
-
-
 // ============================================================================
 // EXERCICE 8 : Pipeline avec filtre - Top cuisines à Manhattan
 // ============================================================================
@@ -261,10 +257,6 @@ db.restaurants.aggregate([
     { $sort: { count: -1 } },
     { $limit: 5 }
 ]);
-
-// Résultat attendu :
-// American: ~3205, Café/Coffee/Tea: ~1039, Italian: ~932, Chinese: ~826, Japanese: ~517
-
 
 // ============================================================================
 // EXERCICE 9 : Groupement avec $addToSet
@@ -295,10 +287,6 @@ db.restaurants.aggregate([
         $sort: { nb_cuisines: -1 }
     }
 ]);
-
-// Résultat attendu :
-// Manhattan: ~75, Brooklyn: ~70, Queens: ~70, Bronx: ~53, Staten Island: ~45
-
 
 // ############################################################################
 // PHASE 3 : TRANSFORMATION DES DONNÉES
@@ -366,10 +354,6 @@ db.restaurants.aggregate([
     { $sort: { nb_inspections: -1 } }
 ]);
 
-// Résultat attendu :
-// Manhattan: ~50000 inspections, Brooklyn: ~29000, Queens: ~27000...
-
-
 // ############################################################################
 // PHASE 4 : AGRÉGATIONS AVANCÉES
 // ############################################################################
@@ -426,10 +410,6 @@ db.restaurants.aggregate([
     },
     { $sort: { densite_pour_10000: -1 } }
 ]);
-
-// Résultat attendu :
-// Manhattan: densité ~63, Staten Island: ~20, Brooklyn: ~24...
-
 
 // ============================================================================
 // EXERCICE 13 : Histogramme avec $bucket

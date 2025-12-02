@@ -1450,44 +1450,6 @@ curl http://localhost:3000/api/inexistant
 
 ### 6.4 Votre mission : Compléter les routes API
 
-#### Vue d'ensemble des routes à implémenter
-
-```mermaid
-flowchart TB
-    subgraph API["API REST - dashboard-api/src/routes/stats.js"]
-        R1["/api/stats/overview"]
-        R2["/api/stats/par-quartier"]
-        R3["/api/stats/top-cuisines"]
-        R4["/api/stats/distribution-grades"]
-        R5["/api/stats/evolution-scores"]
-        R6["/api/stats/dashboard<br/>(BONUS)"]
-    end
-
-    subgraph Pipelines["Pipelines MongoDB"]
-        P1["$group + $addToSet + $size"]
-        P2["$group + $sort"]
-        P3["$group + $sort + $limit"]
-        P4["$unwind + $group + $sort"]
-        P5["$unwind + $group ($year) + $sort"]
-        P6["$facet (combine tous)"]
-    end
-
-    subgraph Dashboard["Dashboard - Graphiques"]
-        G1["Compteurs"]
-        G2["Bar Chart Quartiers"]
-        G3["Pie Chart Cuisines"]
-        G4["Doughnut Grades"]
-        G5["Line Chart Evolution"]
-    end
-
-    R1 --> P1 --> G1
-    R2 --> P2 --> G2
-    R3 --> P3 --> G3
-    R4 --> P4 --> G4
-    R5 --> P5 --> G5
-    R6 --> P6
-```
-
 Ouvrez `dashboard-api/src/routes/stats.js` et complétez les 5 pipelines d'agrégation :
 
 #### Route 1 : `/api/stats/overview`

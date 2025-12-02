@@ -1,4 +1,5 @@
 /* global use, db */
+/* eslint-disable no-undef */
 
 // ============================================================================
 // TP2 : Requêtage avancé et pipeline d'agrégation MongoDB
@@ -17,9 +18,11 @@
 // Instructions :
 // 1. Ouvrir ce fichier dans VS Code avec l'extension MongoDB for VS Code
 // 2. Connectez-vous à votre cluster Atlas
-// 3. Exécutez les blocs de code avec Ctrl+Alt+R (ou clic droit > Run)
-// 4. Complétez les exercices dans les zones "// TODO"
-// 5. Committez régulièrement votre travail
+// 3. IMPORTANT : Exécutez d'abord la ligne use("sample_restaurants") ci-dessous
+//    avant d'exécuter des sélections partielles
+// 4. Exécutez les blocs de code avec Ctrl+Alt+R (ou clic droit > Run)
+// 5. Complétez les exercices dans les zones "// TODO"
+// 6. Committez régulièrement votre travail
 //
 // Correspondance exercices README ↔ Playground :
 // ----------------------------------------------
